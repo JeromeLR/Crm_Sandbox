@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{6112561C-6D91-4896-A6A9-C256EF41EC0A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_4_DAL_CRM</RootNamespace>
+    <AssemblyName>4 DAL CRM</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="AntiXSSLibrary, Version=4.2.0.0, Culture=neutral, PublicKeyToken=d127efab8a9c114f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Extensions.7.0.0.1\lib\net45\AntiXSSLibrary.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Crm.Sdk.Proxy, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Crm.Sdk.Proxy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.IdentityModel, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.IdentityModel.6.1.7600.16394\lib\net35\Microsoft.IdentityModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Client, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Extensions.7.0.0.1\lib\net45\Microsoft.Xrm.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Client.CodeGeneration, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Extensions.7.0.0.1\lib\net45\Microsoft.Xrm.Client.CodeGeneration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Portal, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Extensions.7.0.0.1\lib\net45\Microsoft.Xrm.Portal.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Portal.Files, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Extensions.7.0.0.1\lib\net45\Microsoft.Xrm.Portal.Files.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk, Version=8.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.CoreAssemblies.8.2.0.2\lib\net452\Microsoft.Xrm.Sdk.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Deployment, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Deployment.7.0.0.1\lib\net45\Microsoft.Xrm.Sdk.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Xrm.Sdk.Workflow, Version=7.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CrmSdk.Workflow.7.0.0.1\lib\net45\Microsoft.Xrm.Sdk.Workflow.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Moq, Version=4.2.1502.911, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1502.0911\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Services" />
+    <Reference Include="System.Data.Services.Client" />
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xrm.Framework.Test, Version=7.0.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Xrm.Framework.Test.7.0.0.1\lib\net452\Xrm.Framework.Test.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SDK\DeviceIdManager.cs" />
+    <Compile Include="Domaine\DomaineAccount.cs" />
+    <Compile Include="SDK\DynamicsCrm.cs" />
+    <Compile Include="EntiteExtension\Account.cs" />
+    <Compile Include="EntiteExtension\Contact.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SdkTypes\Account.cs" />
+    <Compile Include="SdkTypes\AccountLeads.cs" />
+    <Compile Include="SdkTypes\AccountState.cs" />
+    <Compile Include="SdkTypes\ActivityMimeAttachment.cs" />
+    <Compile Include="SdkTypes\ActivityParty.cs" />
+    <Compile Include="SdkTypes\ActivityPointer.cs" />
+    <Compile Include="SdkTypes\ActivityPointerState.cs" />
+    <Compile Include="SdkTypes\Annotation.cs" />
+    <Compile Include="SdkTypes\AnnualFiscalCalendar.cs" />
+    <Compile Include="SdkTypes\Appointment.cs" />
+    <Compile Include="SdkTypes\AppointmentState.cs" />
+    <Compile Include="SdkTypes\AsyncOperation.cs" />
+    <Compile Include="SdkTypes\AsyncOperationState.cs" />
+    <Compile Include="SdkTypes\AttributeMap.cs" />
+    <Compile Include="SdkTypes\Audit.cs" />
+    <Compile Include="SdkTypes\BulkDeleteFailure.cs" />
+    <Compile Include="SdkTypes\BulkDeleteOperation.cs" />
+    <Compile Include="SdkTypes\BulkDeleteOperationState.cs" />
+    <Compile Include="SdkTypes\BulkOperation.cs" />
+    <Compile Include="SdkTypes\BulkOperationLog.cs" />
+    <Compile Include="SdkTypes\BulkOperationState.cs" />
+    <Compile Include="SdkTypes\BusinessUnit.cs" />
+    <Compile Include="SdkTypes\BusinessUnitNewsArticle.cs" />
+    <Compile Include="SdkTypes\Calendar.cs" />
+    <Compile Include="SdkTypes\CalendarRule.cs" />
+    <Compile Include="SdkTypes\Campaign.cs" />
+    <Compile Include="SdkTypes\CampaignActivity.cs" />
+    <Compile Include="SdkTypes\CampaignActivityItem.cs" />
+    <Compile Include="SdkTypes\CampaignActivityState.cs" />
+    <Compile Include="SdkTypes\CampaignItem.cs" />
+    <Compile Include="SdkTypes\CampaignResponse.cs" />
+    <Compile Include="SdkTypes\CampaignResponseState.cs" />
+    <Compile Include="SdkTypes\CampaignState.cs" />
+    <Compile Include="SdkTypes\ColumnMapping.cs" />
+    <Compile Include="SdkTypes\ColumnMappingState.cs" />
+    <Compile Include="SdkTypes\Competitor.cs" />
+    <Compile Include="SdkTypes\CompetitorProduct.cs" />
+    <Compile Include="SdkTypes\CompetitorSalesLiterature.cs" />
+    <Compile Include="SdkTypes\Connection.cs" />
+    <Compile Include="SdkTypes\ConnectionRole.cs" />
+    <Compile Include="SdkTypes\ConnectionRoleAssociation.cs" />
+    <Compile Include="SdkTypes\ConnectionRoleObjectTypeCode.cs" />
+    <Compile Include="SdkTypes\ConnectionRoleState.cs" />
+    <Compile Include="SdkTypes\ConnectionState.cs" />
+    <Compile Include="SdkTypes\ConstraintBasedGroup.cs" />
+    <Compile Include="SdkTypes\Contact.cs" />
+    <Compile Include="SdkTypes\ContactInvoices.cs" />
+    <Compile Include="SdkTypes\ContactLeads.cs" />
+    <Compile Include="SdkTypes\ContactOrders.cs" />
+    <Compile Include="SdkTypes\ContactQuotes.cs" />
+    <Compile Include="SdkTypes\ContactState.cs" />
+    <Compile Include="SdkTypes\Contract.cs" />
+    <Compile Include="SdkTypes\ContractDetail.cs" />
+    <Compile Include="SdkTypes\ContractDetailState.cs" />
+    <Compile Include="SdkTypes\ContractState.cs" />
+    <Compile Include="SdkTypes\ContractTemplate.cs" />
+    <Compile Include="SdkTypes\ConvertRule.cs" />
+    <Compile Include="SdkTypes\ConvertRuleItem.cs" />
+    <Compile Include="SdkTypes\ConvertRuleState.cs" />
+    <Compile Include="SdkTypes\CustomerAddress.cs" />
+    <Compile Include="SdkTypes\CustomerOpportunityRole.cs" />
+    <Compile Include="SdkTypes\CustomerRelationship.cs" />
+    <Compile Include="SdkTypes\Dependency.cs" />
+    <Compile Include="SdkTypes\Discount.cs" />
+    <Compile Include="SdkTypes\DiscountType.cs" />
+    <Compile Include="SdkTypes\DiscountTypeState.cs" />
+    <Compile Include="SdkTypes\DisplayString.cs" />
+    <Compile Include="SdkTypes\DuplicateRecord.cs" />
+    <Compile Include="SdkTypes\DuplicateRule.cs" />
+    <Compile Include="SdkTypes\DuplicateRuleCondition.cs" />
+    <Compile Include="SdkTypes\DuplicateRuleState.cs" />
+    <Compile Include="SdkTypes\DynamicProperty.cs" />
+    <Compile Include="SdkTypes\DynamicPropertyAssociation.cs" />
+    <Compile Include="SdkTypes\DynamicPropertyInstance.cs" />
+    <Compile Include="SdkTypes\DynamicPropertyOptionSetItem.cs" />
+    <Compile Include="SdkTypes\DynamicPropertyState.cs" />
+    <Compile Include="SdkTypes\Email.cs" />
+    <Compile Include="SdkTypes\EmailServerProfile.cs" />
+    <Compile Include="SdkTypes\EmailServerProfileState.cs" />
+    <Compile Include="SdkTypes\EmailState.cs" />
+    <Compile Include="SdkTypes\Entitlement.cs" />
+    <Compile Include="SdkTypes\EntitlementChannel.cs" />
+    <Compile Include="SdkTypes\EntitlementContacts.cs" />
+    <Compile Include="SdkTypes\EntitlementProducts.cs" />
+    <Compile Include="SdkTypes\EntitlementState.cs" />
+    <Compile Include="SdkTypes\EntitlementTemplate.cs" />
+    <Compile Include="SdkTypes\EntitlementTemplateChannel.cs" />
+    <Compile Include="SdkTypes\EntitlementTemplateProducts.cs" />
+    <Compile Include="SdkTypes\EntityMap.cs" />
+    <Compile Include="SdkTypes\EnumConditionsReglement.cs" />
+    <Compile Include="SdkTypes\EnumStatutJuridique.cs" />
+    <Compile Include="SdkTypes\EnumTypeDeRelation.cs" />
+    <Compile Include="SdkTypes\Equipment.cs" />
+    <Compile Include="SdkTypes\ExchangeSyncIdMapping.cs" />
+    <Compile Include="SdkTypes\Fax.cs" />
+    <Compile Include="SdkTypes\FaxState.cs" />
+    <Compile Include="SdkTypes\FieldPermission.cs" />
+    <Compile Include="SdkTypes\FieldSecurityProfile.cs" />
+    <Compile Include="SdkTypes\FixedMonthlyFiscalCalendar.cs" />
+    <Compile Include="SdkTypes\Goal.cs" />
+    <Compile Include="SdkTypes\GoalRollupQuery.cs" />
+    <Compile Include="SdkTypes\GoalRollupQueryState.cs" />
+    <Compile Include="SdkTypes\GoalState.cs" />
+    <Compile Include="SdkTypes\HierarchyRule.cs" />
+    <Compile Include="SdkTypes\HierarchySecurityConfiguration.cs" />
+    <Compile Include="SdkTypes\Import.cs" />
+    <Compile Include="SdkTypes\ImportEntityMapping.cs" />
+    <Compile Include="SdkTypes\ImportEntityMappingState.cs" />
+    <Compile Include="SdkTypes\ImportFile.cs" />
+    <Compile Include="SdkTypes\ImportFileState.cs" />
+    <Compile Include="SdkTypes\ImportJob.cs" />
+    <Compile Include="SdkTypes\ImportLog.cs" />
+    <Compile Include="SdkTypes\ImportLogState.cs" />
+    <Compile Include="SdkTypes\ImportMap.cs" />
+    <Compile Include="SdkTypes\ImportMapState.cs" />
+    <Compile Include="SdkTypes\ImportState.cs" />
+    <Compile Include="SdkTypes\Incident.cs" />
+    <Compile Include="SdkTypes\IncidentResolution.cs" />
+    <Compile Include="SdkTypes\IncidentResolutionState.cs" />
+    <Compile Include="SdkTypes\IncidentState.cs" />
+    <Compile Include="SdkTypes\InvalidDependency.cs" />
+    <Compile Include="SdkTypes\Invoice.cs" />
+    <Compile Include="SdkTypes\InvoiceDetail.cs" />
+    <Compile Include="SdkTypes\InvoiceState.cs" />
+    <Compile Include="SdkTypes\IsvConfig.cs" />
+    <Compile Include="SdkTypes\KbArticle.cs" />
+    <Compile Include="SdkTypes\KbArticleComment.cs" />
+    <Compile Include="SdkTypes\KbArticleState.cs" />
+    <Compile Include="SdkTypes\KbArticleTemplate.cs" />
+    <Compile Include="SdkTypes\Lead.cs" />
+    <Compile Include="SdkTypes\LeadAddress.cs" />
+    <Compile Include="SdkTypes\LeadCompetitors.cs" />
+    <Compile Include="SdkTypes\LeadProduct.cs" />
+    <Compile Include="SdkTypes\LeadState.cs" />
+    <Compile Include="SdkTypes\Letter.cs" />
+    <Compile Include="SdkTypes\LetterState.cs" />
+    <Compile Include="SdkTypes\License.cs" />
+    <Compile Include="SdkTypes\List.cs" />
+    <Compile Include="SdkTypes\ListMember.cs" />
+    <Compile Include="SdkTypes\ListState.cs" />
+    <Compile Include="SdkTypes\LookUpMapping.cs" />
+    <Compile Include="SdkTypes\LookUpMappingState.cs" />
+    <Compile Include="SdkTypes\Mailbox.cs" />
+    <Compile Include="SdkTypes\MailboxState.cs" />
+    <Compile Include="SdkTypes\MailMergeTemplate.cs" />
+    <Compile Include="SdkTypes\MailMergeTemplateState.cs" />
+    <Compile Include="SdkTypes\Metric.cs" />
+    <Compile Include="SdkTypes\MetricState.cs" />
+    <Compile Include="SdkTypes\MonthlyFiscalCalendar.cs" />
+    <Compile Include="SdkTypes\msdyn_PostAlbum.cs" />
+    <Compile Include="SdkTypes\msdyn_PostAlbumState.cs" />
+    <Compile Include="SdkTypes\msdyn_PostConfig.cs" />
+    <Compile Include="SdkTypes\msdyn_PostConfigState.cs" />
+    <Compile Include="SdkTypes\msdyn_PostRuleConfig.cs" />
+    <Compile Include="SdkTypes\msdyn_PostRuleConfigState.cs" />
+    <Compile Include="SdkTypes\msdyn_wallsavedquery.cs" />
+    <Compile Include="SdkTypes\msdyn_wallsavedqueryState.cs" />
+    <Compile Include="SdkTypes\msdyn_wallsavedqueryusersettings.cs" />
+    <Compile Include="SdkTypes\msdyn_wallsavedqueryusersettingsState.cs" />
+    <Compile Include="SdkTypes\Opportunity.cs" />
+    <Compile Include="SdkTypes\OpportunityClose.cs" />
+    <Compile Include="SdkTypes\OpportunityCloseState.cs" />
+    <Compile Include="SdkTypes\OpportunityCompetitors.cs" />
+    <Compile Include="SdkTypes\OpportunityProduct.cs" />
+    <Compile Include="SdkTypes\OpportunityState.cs" />
+    <Compile Include="SdkTypes\OrderClose.cs" />
+    <Compile Include="SdkTypes\OrderCloseState.cs" />
+    <Compile Include="SdkTypes\Organization.cs" />
+    <Compile Include="SdkTypes\OrganizationUI.cs" />
+    <Compile Include="SdkTypes\OwnerMapping.cs" />
+    <Compile Include="SdkTypes\OwnerMappingState.cs" />
+    <Compile Include="SdkTypes\PhoneCall.cs" />
+    <Compile Include="SdkTypes\PhoneCallState.cs" />
+    <Compile Include="SdkTypes\PickListMapping.cs" />
+    <Compile Include="SdkTypes\PickListMappingState.cs" />
+    <Compile Include="SdkTypes\PluginAssembly.cs" />
+    <Compile Include="SdkTypes\PluginType.cs" />
+    <Compile Include="SdkTypes\PluginTypeStatistic.cs" />
+    <Compile Include="SdkTypes\Position.cs" />
+    <Compile Include="SdkTypes\PositionState.cs" />
+    <Compile Include="SdkTypes\Post.cs" />
+    <Compile Include="SdkTypes\PostComment.cs" />
+    <Compile Include="SdkTypes\PostFollow.cs" />
+    <Compile Include="SdkTypes\PostLike.cs" />
+    <Compile Include="SdkTypes\PriceLevel.cs" />
+    <Compile Include="SdkTypes\PriceLevelState.cs" />
+    <Compile Include="SdkTypes\PrincipalEntityMap.cs" />
+    <Compile Include="SdkTypes\PrincipalObjectAttributeAccess.cs" />
+    <Compile Include="SdkTypes\Privilege.cs" />
+    <Compile Include="SdkTypes\ProcessSession.cs" />
+    <Compile Include="SdkTypes\ProcessSessionState.cs" />
+    <Compile Include="SdkTypes\ProcessStage.cs" />
+    <Compile Include="SdkTypes\ProcessTrigger.cs" />
+    <Compile Include="SdkTypes\Product.cs" />
+    <Compile Include="SdkTypes\ProductAssociation.cs" />
+    <Compile Include="SdkTypes\ProductAssociationState.cs" />
+    <Compile Include="SdkTypes\ProductPriceLevel.cs" />
+    <Compile Include="SdkTypes\ProductSalesLiterature.cs" />
+    <Compile Include="SdkTypes\ProductState.cs" />
+    <Compile Include="SdkTypes\ProductSubstitute.cs" />
+    <Compile Include="SdkTypes\ProductSubstituteState.cs" />
+    <Compile Include="SdkTypes\Publisher.cs" />
+    <Compile Include="SdkTypes\PublisherAddress.cs" />
+    <Compile Include="SdkTypes\QuarterlyFiscalCalendar.cs" />
+    <Compile Include="SdkTypes\Queue.cs" />
+    <Compile Include="SdkTypes\QueueItem.cs" />
+    <Compile Include="SdkTypes\QueueItemState.cs" />
+    <Compile Include="SdkTypes\QueueMembership.cs" />
+    <Compile Include="SdkTypes\QueueState.cs" />
+    <Compile Include="SdkTypes\Quote.cs" />
+    <Compile Include="SdkTypes\QuoteClose.cs" />
+    <Compile Include="SdkTypes\QuoteCloseState.cs" />
+    <Compile Include="SdkTypes\QuoteDetail.cs" />
+    <Compile Include="SdkTypes\QuoteState.cs" />
+    <Compile Include="SdkTypes\RecurrenceRule.cs" />
+    <Compile Include="SdkTypes\RecurringAppointmentMaster.cs" />
+    <Compile Include="SdkTypes\RecurringAppointmentMasterState.cs" />
+    <Compile Include="SdkTypes\RelationshipRole.cs" />
+    <Compile Include="SdkTypes\RelationshipRoleMap.cs" />
+    <Compile Include="SdkTypes\RelationshipRoleState.cs" />
+    <Compile Include="SdkTypes\Report.cs" />
+    <Compile Include="SdkTypes\ReportCategory.cs" />
+    <Compile Include="SdkTypes\ReportEntity.cs" />
+    <Compile Include="SdkTypes\ReportLink.cs" />
+    <Compile Include="SdkTypes\ReportVisibility.cs" />
+    <Compile Include="SdkTypes\Resource.cs" />
+    <Compile Include="SdkTypes\ResourceGroup.cs" />
+    <Compile Include="SdkTypes\ResourceSpec.cs" />
+    <Compile Include="SdkTypes\RibbonCustomization.cs" />
+    <Compile Include="SdkTypes\Role.cs" />
+    <Compile Include="SdkTypes\RolePrivileges.cs" />
+    <Compile Include="SdkTypes\RoleTemplatePrivileges.cs" />
+    <Compile Include="SdkTypes\RollupField.cs" />
+    <Compile Include="SdkTypes\RoutingRule.cs" />
+    <Compile Include="SdkTypes\RoutingRuleItem.cs" />
+    <Compile Include="SdkTypes\RoutingRuleState.cs" />
+    <Compile Include="SdkTypes\SalesLiterature.cs" />
+    <Compile Include="SdkTypes\SalesLiteratureItem.cs" />
+    <Compile Include="SdkTypes\SalesOrder.cs" />
+    <Compile Include="SdkTypes\SalesOrderDetail.cs" />
+    <Compile Include="SdkTypes\SalesOrderState.cs" />
+    <Compile Include="SdkTypes\SavedQuery.cs" />
+    <Compile Include="SdkTypes\SavedQueryState.cs" />
+    <Compile Include="SdkTypes\SavedQueryVisualization.cs" />
+    <Compile Include="SdkTypes\SdkMessage.cs" />
+    <Compile Include="SdkTypes\SdkMessageFilter.cs" />
+    <Compile Include="SdkTypes\SdkMessagePair.cs" />
+    <Compile Include="SdkTypes\SdkMessageProcessingStep.cs" />
+    <Compile Include="SdkTypes\SdkMessageProcessingStepImage.cs" />
+    <Compile Include="SdkTypes\SdkMessageProcessingStepSecureConfig.cs" />
+    <Compile Include="SdkTypes\SdkMessageProcessingStepState.cs" />
+    <Compile Include="SdkTypes\SdkMessageRequest.cs" />
+    <Compile Include="SdkTypes\SdkMessageRequestField.cs" />
+    <Compile Include="SdkTypes\SdkMessageResponse.cs" />
+    <Compile Include="SdkTypes\SdkMessageResponseField.cs" />
+    <Compile Include="SdkTypes\SemiAnnualFiscalCalendar.cs" />
+    <Compile Include="SdkTypes\Service.cs" />
+    <Compile Include="SdkTypes\ServiceAppointment.cs" />
+    <Compile Include="SdkTypes\ServiceAppointmentState.cs" />
+    <Compile Include="SdkTypes\ServiceContext.cs" />
+    <Compile Include="SdkTypes\ServiceContractContacts.cs" />
+    <Compile Include="SdkTypes\ServiceEndpoint.cs" />
+    <Compile Include="SdkTypes\SharePointData.cs" />
+    <Compile Include="SdkTypes\SharePointDocument.cs" />
+    <Compile Include="SdkTypes\SharePointDocumentLocation.cs" />
+    <Compile Include="SdkTypes\SharePointDocumentLocationState.cs" />
+    <Compile Include="SdkTypes\SharePointSite.cs" />
+    <Compile Include="SdkTypes\SharePointSiteState.cs" />
+    <Compile Include="SdkTypes\Site.cs" />
+    <Compile Include="SdkTypes\SiteMap.cs" />
+    <Compile Include="SdkTypes\SLA.cs" />
+    <Compile Include="SdkTypes\SLAItem.cs" />
+    <Compile Include="SdkTypes\SLAKPIInstance.cs" />
+    <Compile Include="SdkTypes\SLAState.cs" />
+    <Compile Include="SdkTypes\SocialActivity.cs" />
+    <Compile Include="SdkTypes\SocialActivityState.cs" />
+    <Compile Include="SdkTypes\SocialInsightsConfiguration.cs" />
+    <Compile Include="SdkTypes\SocialProfile.cs" />
+    <Compile Include="SdkTypes\SocialProfileState.cs" />
+    <Compile Include="SdkTypes\Solution.cs" />
+    <Compile Include="SdkTypes\SolutionComponent.cs" />
+    <Compile Include="SdkTypes\StringValueAttribute.cs" />
+    <Compile Include="SdkTypes\Subject.cs" />
+    <Compile Include="SdkTypes\SubscriptionManuallyTrackedObject.cs" />
+    <Compile Include="SdkTypes\SubscriptionTrackingDeletedObject.cs" />
+    <Compile Include="SdkTypes\SystemForm.cs" />
+    <Compile Include="SdkTypes\SystemUser.cs" />
+    <Compile Include="SdkTypes\SystemUserLicenses.cs" />
+    <Compile Include="SdkTypes\SystemUserProfiles.cs" />
+    <Compile Include="SdkTypes\SystemUserRoles.cs" />
+    <Compile Include="SdkTypes\SystemUserSyncMappingProfiles.cs" />
+    <Compile Include="SdkTypes\Task.cs" />
+    <Compile Include="SdkTypes\TaskState.cs" />
+    <Compile Include="SdkTypes\Team.cs" />
+    <Compile Include="SdkTypes\TeamMembership.cs" />
+    <Compile Include="SdkTypes\TeamProfiles.cs" />
+    <Compile Include="SdkTypes\TeamRoles.cs" />
+    <Compile Include="SdkTypes\TeamSyncAttributeMappingProfiles.cs" />
+    <Compile Include="SdkTypes\TeamTemplate.cs" />
+    <Compile Include="SdkTypes\Template.cs" />
+    <Compile Include="SdkTypes\Territory.cs" />
+    <Compile Include="SdkTypes\TimeZoneDefinition.cs" />
+    <Compile Include="SdkTypes\TimeZoneLocalizedName.cs" />
+    <Compile Include="SdkTypes\TimeZoneRule.cs" />
+    <Compile Include="SdkTypes\TraceLog.cs" />
+    <Compile Include="SdkTypes\TransactionCurrency.cs" />
+    <Compile Include="SdkTypes\TransactionCurrencyState.cs" />
+    <Compile Include="SdkTypes\TransformationMapping.cs" />
+    <Compile Include="SdkTypes\TransformationMappingState.cs" />
+    <Compile Include="SdkTypes\TransformationParameterMapping.cs" />
+    <Compile Include="SdkTypes\UoM.cs" />
+    <Compile Include="SdkTypes\UoMSchedule.cs" />
+    <Compile Include="SdkTypes\UoMScheduleState.cs" />
+    <Compile Include="SdkTypes\UserEntityInstanceData.cs" />
+    <Compile Include="SdkTypes\UserEntityUISettings.cs" />
+    <Compile Include="SdkTypes\UserForm.cs" />
+    <Compile Include="SdkTypes\UserQuery.cs" />
+    <Compile Include="SdkTypes\UserQueryState.cs" />
+    <Compile Include="SdkTypes\UserQueryVisualization.cs" />
+    <Compile Include="SdkTypes\UserSettings.cs" />
+    <Compile Include="SdkTypes\WebResource.cs" />
+    <Compile Include="SdkTypes\Workflow.cs" />
+    <Compile Include="SdkTypes\WorkflowDependency.cs" />
+    <Compile Include="SdkTypes\WorkflowLog.cs" />
+    <Compile Include="SdkTypes\WorkflowState.cs" />
+    <Compile Include="SDK\ServerConnection.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
