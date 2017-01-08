@@ -5,62 +5,49 @@ using System.Text;
 using System.Threading.Tasks;
 using TO;
 using BS.BSExtension;
+using Microsoft.Xrm.Sdk;
+using Microsoft.Xrm.Sdk.Client;
+using _4_DAL_CRM;
 
 namespace BS.BusinessServices
 {
     public interface IBSAccount
     {
-        TOSociete GetAccountById(int id);
-        TOSociete GetAccountByNom(string nom);
-        List<TOSociete> GetAllAccounts();
-        TOSociete Add(TOSociete toSociete);
-        bool Del(int id);
-        void Update(TOSociete toSociete);
+        //TOSociete GetAccountByGuid(Guid guid);
     }
 
     public class BSAccount : IBSAccount
     {
         private BusinessService Service;
 
+        public OrganizationServiceProxy serviceCrm;
+
+        public IOrganizationService seriveCRM2 { get; set; }
+
+        public BSAccount(IOrganizationService service)
+        {
+            this.serviceCrm = serviceCrm;
+            this.seriveCRM2 = seriveCRM2;
+        }
+
         public BSAccount(BusinessService bs)
         {
             Service = bs;
-        }            
-
-        public TOSociete GetAccountById(int id)
-        {
-            var societe = Service.DomaineSociete.GetSocieteById(id);
-            return societe.ToTransferObject();
-        }
-        
-        public TOSociete GetAccountByNom(string nom)
-        {
-            var societe = Service.DomaineSociete.GetSocieteByNom(nom);
-            return societe.ToTransferObject();
         }
 
-        public List<TOSociete> GetAllAccounts()
+        public TOSociete GetAccountByGuid(Guid guid, IOrganizationService orgnaisationService)
         {
-            var societe = Service.DomaineSociete.GetAllSocietes();
-           
-            return societe.ToTransferObject();
+            Account account = Service.DomaineAccount.RetrieveByGuid(guid, orgnaisationService);
+
+            return account.ToTransferObject();
         }
 
-        public TOSociete Add(TOSociete toSociete)
+        public void UpdateAccount(Account account, IOrganizationService orgnaisationService)
         {
-            var societe = Service.DomaineSociete.Add(toSociete.ToEntity());
-            return societe.ToTransferObject();
+
+            Service.DomaineAccount.Update(account, orgnaisationService);
+
         }
 
-        public bool Del(int id)
-        {
-            var societe = Service.DomaineSociete.Del(id);
-            return true;
-        }
-
-        public void Update(TOSociete toSociete)
-        {
-            Service.DomaineSociete.Update(toSociete.ToEntity());
-        }
     }
 }

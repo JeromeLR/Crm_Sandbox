@@ -25,12 +25,6 @@ namespace DAL.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Article> Article { get; set; }
-        public virtual DbSet<Categorie> Categorie { get; set; }
-        public virtual DbSet<Client> Client { get; set; }
-        public virtual DbSet<Facture> Facture { get; set; }
-        public virtual DbSet<LigneCommande> LigneCommande { get; set; }
-        public virtual DbSet<TypeSouscription> TypeSouscription { get; set; }
         public virtual DbSet<Societe> Societe { get; set; }
     }
 }

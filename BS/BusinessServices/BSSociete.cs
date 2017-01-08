@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using TO;
 using BS.BSExtension;
+using DAL.Entities;
+using _4_DAL_CRM;
 
 namespace BS.BusinessServices
 {
@@ -15,7 +17,8 @@ namespace BS.BusinessServices
         List<TOSociete> GetAllSocietes();
         TOSociete Add(TOSociete toSociete);
         bool Del(int id);
-        void Update(TOSociete toSociete);
+        void Update(Societe societe);
+        void UpdateFromAccount(Account account);
     }
 
     public class BSSociete : IBSSociete
@@ -32,6 +35,13 @@ namespace BS.BusinessServices
             var societe = Service.DomaineSociete.GetSocieteById(id);
             return societe.ToTransferObject();
         }
+
+        public TOSociete GetSocieteByGuid(Guid guid)
+        {
+            var societe = Service.DomaineSociete.GetSocieteByGuId(guid);
+            return societe.ToTransferObject();
+        }
+
 
 
         public TOSociete GetSocieteById_testMoq(int id)
@@ -67,9 +77,22 @@ namespace BS.BusinessServices
             return true;
         }
 
-        public void Update(TOSociete toSociete)
+        public void Update(Societe societe)
         {
-            Service.DomaineSociete.Update(toSociete.ToEntity());
+            Service.DomaineSociete.Update(societe);
+        }
+
+        public void UpdateFromAccount(Account account)
+        {
+            // recherche societe
+            Societe socBase = Service.DomaineSociete.GetSocieteByGuId(account.Id);
+
+            // account en societe
+            Societe socAJour = account.toBase();
+
+            socAJour.Id = socBase.Id;
+
+            Update(socAJour);
         }
     }
 }

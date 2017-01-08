@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using DAL.Entities;
 
@@ -12,6 +13,7 @@ namespace DAL.Domaine
         Societe Add(Societe a);
         bool Del(int id);
         void Update(Societe societe);
+        Societe GetSocieteByGuId(Guid guid);
     }
 
     /// <summary>
@@ -58,6 +60,22 @@ namespace DAL.Domaine
             using (var db = new modelEntities1())
             {
                 societe = db.Societe.First(c => c.Id == id);
+            }
+            return societe;
+        }
+
+        /// <summary>
+        /// Retourne un Societe par son id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>client</returns>
+        public Societe GetSocieteByGuId(Guid guid)
+        {
+            Societe societe;
+            var stringGuid = guid.ToString();
+            using (var db = new modelEntities1())
+            {
+                societe = db.Societe.First(c => c.Guid == stringGuid);
             }
             return societe;
         }

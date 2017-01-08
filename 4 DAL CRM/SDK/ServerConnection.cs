@@ -640,7 +640,7 @@ namespace _4_DAL_CRM
                         config.UserPrincipalName = String.Empty;
                         if (config.EndpointType == AuthenticationProviderType.LiveId)
                             Console.Write("\n Enter Microsoft account: ");
-                        else
+                        //else
                             //Console.Write("\n Enter Username: ");
                             //if (string.IsNullOrWhiteSpace(userName))
                             //{
@@ -648,7 +648,7 @@ namespace _4_DAL_CRM
                             //}
 
                             //Console.Write(" Enter Password: ");
-                            password = ReadPassword();
+                            //password = ReadPassword();
                     }
                    
                     credentials.UserName.UserName = "username";
@@ -700,15 +700,10 @@ namespace _4_DAL_CRM
 
             // TODO : valeur en dur
             // Lock the secure string password.
-            ssPassword.AppendChar('G');
-            ssPassword.AppendChar('e');
-            ssPassword.AppendChar('s');
-            ssPassword.AppendChar('t');
-            ssPassword.AppendChar('A');
-            ssPassword.AppendChar('d');
-            ssPassword.AppendChar('m');
-            ssPassword.AppendChar('1');
-            ssPassword.AppendChar('6');
+            ssPassword.AppendChar('L');
+            ssPassword.AppendChar('O');
+            ssPassword.AppendChar('L');
+           
             ssPassword.MakeReadOnly();
 
             return ssPassword;

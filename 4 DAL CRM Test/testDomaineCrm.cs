@@ -2,15 +2,21 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Microsoft.Xrm.Sdk;
 using Moq;
+using NUnit.Framework;
 using _4_DAL_CRM;
+using _4_DAL_CRM.Domaine;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace _4_DAL_CRM_Test
 {
     [TestClass]
     public class TestDomaineCrm
     {
-        [TestMethod]
-        public void CreateCrmAccount_Test()
+        /// <summary>
+        /// Tests the CreateCrmAccount2 method
+        /// </summary>
+        [Test]
+        public void CreateCrmAccount2()
         {
             //ARRANGE - set up everything our test needs
 
@@ -18,33 +24,62 @@ namespace _4_DAL_CRM_Test
             var serviceMock = new Mock<IOrganizationService>();
             IOrganizationService service = serviceMock.Object;
 
-            //next - set a name for our fake account record to create
+            //next - set a name and account number for our fake account record to create
             string accountName = "Lucas Demo Company";
+            string accountNumber = "LPA1234";
 
             //next - create a guid that we want our mock service Create method to return when called
             Guid idToReturn = Guid.NewGuid();
 
-            //next - create an entity object that will allow us to capture the entity record that is passed to the Create method
-            Entity actualEntity = new Entity();
+            //next - create an object that will allow us to capture the account object that is passed to the Create method
+            Entity createdAccount = new Entity();
 
-            //finally - tell our mock service what to do when the Create method is called
+            //next - create an entity object that will allow us to capture the task object that is passed to the Create method
+            Entity createdTask = new Entity();
+
+            //next - create an mock account record to pass back to the Retrieve method
+            Entity mockReturnedAccount = new Entity("account");
+            mockReturnedAccount["name"] = accountName;
+            mockReturnedAccount["accountnumber"] = accountNumber;
+            mockReturnedAccount["accountid"] = idToReturn;
+            mockReturnedAccount.Id = idToReturn;
+
+            //finally - tell our mock service what to do when the CRM service methods are called
+
+            //handle the account creation
             serviceMock.Setup(t =>
-                t.Create(It.IsAny<Entity>())) //when Create is called with any entity as an invocation parameter
+                t.Create(It.Is<Entity>(e => e.LogicalName.ToUpper() == "account".ToUpper()))) //only match an entity with a logical name of "account"
                 .Returns(idToReturn) //return the idToReturn guid
-                .Callback<Entity>(s => actualEntity = s); //store the Create method invocation parameter for inspection later
+                .Callback<Entity>(s => createdAccount = s); //store the Create method invocation parameter for inspection later
+
+            //handle the task creation
+            serviceMock.Setup(t =>
+                t.Create(It.Is<Entity>(e => e.LogicalName.ToUpper() == "task".ToUpper()))) //only match an entity with a logical name of "task"
+                .Returns(Guid.NewGuid()) //can return any guid here
+                .Callback<Entity>(s => createdTask = s); //store the Create method invocation parameter for inspection later
+
+            //handle the retrieve account operation
+            serviceMock.Setup(t =>
+                t.Retrieve(
+                        It.Is<string>(e => e.ToUpper() == "account".ToUpper()),
+                        It.Is<Guid>(e => e == idToReturn),
+                        It.IsAny<Microsoft.Xrm.Sdk.Query.ColumnSet>())
+                    ) //here we match on logical name of account and the correct id
+                .Returns(mockReturnedAccount);
 
             //ACT - do the thing(s) we want to test
 
-            //call the CreateCrmAccount method like usual, but supply the mock service as an invocation parameter
-            Guid actualGuid = DomaineAccount.CreateCrmAccount(accountName, service);
+            //call the CreateCrmAccount2 method like usual, but supply the mock service as an invocation parameter
+            //DomaineAccount.CreateCrmAccount2(accountName, service);
 
             //ASSERT - verify the results are correct
 
             //verify the entity created inside the CreateCrmAccount method has the name we supplied 
-            Assert.AreEqual(accountName, actualEntity["name"]);
+            Assert.AreEqual(accountName, createdAccount["name"]);
 
-            //verify the guid returned by the CreateCrmAccount is the same guid the Create method returns
-            Assert.AreEqual(idToReturn, actualGuid);
+            //verify task regardingobjectid is the same as the id we returned upon account creation
+            Assert.AreEqual(idToReturn, ((Microsoft.Xrm.Sdk.EntityReference)createdTask["regardingobjectid"]).Id);
+            Assert.AreEqual("Finish account set up for " + accountName + " - " + accountNumber, (string)createdTask["subject"]);
         }
     }
 }

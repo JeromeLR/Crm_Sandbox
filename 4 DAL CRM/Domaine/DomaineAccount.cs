@@ -1,101 +1,86 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using _4_DAL_CRM;
+using Microsoft.Crm.Sdk.Messages;
 using Microsoft.Xrm.Sdk;
 using Microsoft.Xrm.Sdk.Client;
-using Microsoft.Xrm.Sdk.Metadata;
-using Microsoft.Xrm.Sdk.Messages;
+using Microsoft.Xrm.Sdk.Query;
 using __4_DAL_CRM;
 
-namespace _4_DAL_CRM
+namespace _4_DAL_CRM.Domaine
 {
-    public class DomaineAccount
+    public interface IDomaineAccount
     {
-        // avec IOrganizationService, moquable (standard)
-        #region create Moq
-        /// <summary>
-        /// Creates a new account with a given name using the supplied organization service
-        /// </summary>
-        /// <param name="accountName">account name</param>
-        /// <param name="service">organization service</param>
-        /// <returns>id of the new account</returns>
-        public static Guid CreateCrmAccount(string accountName, IOrganizationService service)
-        {
-            // utilisation de l'entité générique
-            Entity account = new Entity("account");
-            account["name"] = accountName;
-            Guid newId = service.Create(account);
-            return newId;
-        }
-        #endregion create Moq
+        Account  RetrieveByGuid(Guid guid, IOrganizationService service);
+        void Update(Account entity, IOrganizationService service);
 
+        Guid Create(string name, IOrganizationService service);
+        EntityCollection RetrieveByName(string name, IOrganizationService service);
+
+    }
+
+    public class DomaineAccount : IDomaineAccount
+    {
+        public DomaineAccount(OrganizationServiceProxy service)
+        {
+            this.service = service;
+        }
+
+        public DomaineAccount()
+        {
+        }
+
+        private readonly OrganizationServiceProxy service;
+
+        public Account RetrieveByGuid(Guid guid, IOrganizationService service)
+        {
+            Entity e = service.Retrieve("account", guid, new ColumnSet(true));
+            Account a = (Account)e;
+
+            return a;
+        }
+
+        public void Update(Account entity, IOrganizationService service)
+        {
+            service.Update(entity);
+        }
         
-
-        public Guid AddAccount(Account a, IOrganizationService service)
+        public Guid Create(string name, IOrganizationService service)
         {
-            // utilisation entité Account
-            var newAccount = new Account
-            {
-                Name = a.Name,
-                Id = a.Id,
-                Address1_PostalCode = a.Address1_PostalCode,
-                Address1_Line1 = a.Address2_Line1,
-                Address1_Line2 = a.Address2_Line1,
-                Address1_City = a.Address1_City
-            };
-            Guid newId = service.Create(a);
-            return newId;
+            var account = new Entity(entityName: "account");
+            account.Attributes["name"] = name;
+            var accountId = service.Create(account);
+            return accountId;
         }
-
-        // Service context implemente IOrganizationService + linQ
-        /// Retourne tous les clients
-        /// </summary>
-        /// <returns>liste de clients</returns>
-        public List<Account> GetAllAccounts(ServiceContext serviceContext )
+        
+        public EntityCollection RetrieveByName(string name, IOrganizationService service)
         {
-            var service = (IOrganizationService) serviceContext;
-            List<Account> accounts;
-            accounts = serviceContext.AccountSet.ToList();
+            var query = new QueryExpression("account");
+            query.ColumnSet = new ColumnSet(true);
+            query.Criteria.AddCondition(new ConditionExpression("name", ConditionOperator.Equal, name));
+            var accounts = service.RetrieveMultiple(query);
             return accounts;
         }
 
-        // Service context implemente IOrganizationService + linQ
-        /// Retourne tous les clients
-        /// </summary>
-        /// <returns>liste de clients</returns>
-        public List<Account> GetAccountsCreatedSince(ServiceContext serviceContext,int periodicite)
+        // pour desactivation
+        public class CrmStatusModel
         {
-            var service = (IOrganizationService)serviceContext;
-            List<Account> accounts;
-            accounts = serviceContext.AccountSet.Where(soc => soc.CreatedOn > DateTime.UtcNow.AddMinutes(-periodicite)).ToList();
-            return accounts;
+            public Guid Id { get; set; }
+            public string EntityName { get; set; }
+            public int StateValue { get; set; }
+            public int StatusValue { get; set; }
         }
 
-
-        // Service context implemente IOrganizationService + linQ
-        /// Retourne tous les clients
-        /// </summary>
-        /// <returns>liste de clients</returns>
-        public List<Account> GetAccountsModifiedSince(ServiceContext serviceContext, int periodicite)
+        public void UpdateStatus(CrmStatusModel model, IOrganizationService service)
         {
-            var service = (IOrganizationService)serviceContext;
-            List<Account> accounts;
-            accounts = serviceContext.AccountSet.Where(a => a.ModifiedOn > DateTime.UtcNow.AddMinutes(-periodicite)).ToList();
-            return accounts;
-        }
+            var stateRequest = new SetStateRequest();
+            stateRequest.EntityMoniker = new EntityReference(model.EntityName, model.Id);
+            stateRequest.State = new OptionSetValue(model.StateValue);
+            stateRequest.Status = new OptionSetValue(model.StatusValue);
 
-        // Service context implemente IOrganizationService + linQ
-        /// Retourne tous les clients
-        /// </summary>
-        /// <returns>liste de clients</returns>
-        public List<Account> GetAccountsDesactivatedSince(ServiceContext serviceContext, int periodicite)
-        {
-            var service = (IOrganizationService)serviceContext;
-            List<Account> accounts;
-            accounts = serviceContext.AccountSet.Where(soc => soc.ModifiedOn > DateTime.UtcNow.AddMinutes(-periodicite) && soc.GetAttributeValue<OptionSetValue>("statecode").Value == 1).ToList();
-            return accounts;
+            service.Execute(stateRequest);
         }
     }
-   
 }
+   
+

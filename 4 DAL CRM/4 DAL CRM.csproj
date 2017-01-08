@@ -118,7 +118,6 @@
     <Compile Include="Domaine\DomaineAccount.cs" />
     <Compile Include="SDK\DynamicsCrm.cs" />
     <Compile Include="EntiteExtension\Account.cs" />
-    <Compile Include="EntiteExtension\Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SdkTypes\Account.cs" />
     <Compile Include="SdkTypes\AccountLeads.cs" />

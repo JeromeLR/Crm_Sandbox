@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DAL.Domaine;
-using DAL;
+﻿using DAL.Domaine;
 using BS.BusinessServices;
-
-
-// todo Question : appel d'un BS à partir d'un autre : passer par les domaines de la DAL ?
-// todo Factorisation des BS ?
-// todo MVC : bonne définitions des modèles ?
-
+using Microsoft.Xrm.Sdk.Client;
+using _4_DAL_CRM;
+using _4_DAL_CRM.Domaine;
+using __4_DAL_CRM;
 
 namespace BS
 {
@@ -55,20 +47,31 @@ namespace BS
 
         #endregion
 
+        #region Base
 
         public IDomaineSociete DomaineSociete;
         public BSSociete Societe { get; private set; }
 
-        
+        #endregion Base
 
+        #region CRM
+
+        public IDomaineAccount DomaineAccount;
+        public BSAccount Account { get; set; }
+
+        
+        #endregion CRM
 
         //unity : private=>public
         public BusinessService()
         {
-            DomaineSociete = new DAL.Domaine.DomaineSociete();
+            DomaineSociete = new DomaineSociete();
             Societe = new BSSociete(this);
 
-           
+            DomaineAccount = new DomaineAccount();
+            Account = new BSAccount(this);
+
+            
         }
     }
 }

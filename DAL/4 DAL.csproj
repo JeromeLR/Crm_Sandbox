@@ -93,22 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Domaine\DomaineSociete.cs" />
-    <Compile Include="Entities\Article.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Categorie.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Client.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Entities.cs" />
-    <Compile Include="Entities\Facture.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\LigneCommande.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Entities\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,9 +110,6 @@
       <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entities\Societe.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\TypeSouscription.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Tests\TestsClient.cs" />
